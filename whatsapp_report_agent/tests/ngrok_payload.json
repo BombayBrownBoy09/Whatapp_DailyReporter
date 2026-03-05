@@ -13,9 +13,9 @@
             },
             "statuses": [
               {
-                "id": "wamid.HBgLMTk4NDMyOTY2MjQVAgARGBJBMzQ2NUIzNzYxNTREODMzN0QA",
-                "status": "read",
-                "timestamp": "1772698782",
+                "id": "wamid.HBgLMTk4NDMyOTY2MjQVAgARGBJEM0MxM0YyRUY1QzdDNjI2NDIA",
+                "status": "delivered",
+                "timestamp": "1772702049",
                 "recipient_id": "19843296624",
                 "pricing": {
                   "billable": false,

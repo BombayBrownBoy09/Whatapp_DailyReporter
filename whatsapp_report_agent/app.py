@@ -3,11 +3,21 @@ from __future__ import annotations
 from datetime import date
 import json
 import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Any, Optional
 
 from fastapi import FastAPI, Request, HTTPException
-from config import WHATSAPP_VERIFY_TOKEN, SENDER_TO_FACTORY, FACTORIES
+from config import (
+    WHATSAPP_VERIFY_TOKEN,
+    SENDER_TO_FACTORY,
+    FACTORIES,
+    DEFAULT_FACTORY_KEY,
+    LOG_LEVEL,
+    LOG_DIR,
+    LOG_FILE,
+    normalize_phone,
+)
 from db import init_db, upsert_daily_update, fetch_daily_update
 from llm_parser import parse_whatsapp_message
 from whatsapp_cloud import send_whatsapp_message
@@ -15,10 +25,38 @@ from scheduler import start_scheduler
 from emailer import send_email_with_attachment
 from report import generate_monthly_report_xlsx, computed_system_target
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("whatsapp_report_agent")
 
 app = FastAPI()
+
+
+def _configure_logging() -> None:
+    level = getattr(logging, LOG_LEVEL, logging.INFO)
+    root = logging.getLogger()
+    root.setLevel(level)
+
+    log_dir = Path(LOG_DIR)
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / LOG_FILE
+
+    formatter = logging.Formatter(
+        "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+
+    file_handler = RotatingFileHandler(log_path, maxBytes=1_000_000, backupCount=3)
+    file_handler.setFormatter(formatter)
+
+    if not root.handlers:
+        root.addHandler(stream_handler)
+        root.addHandler(file_handler)
+    else:
+        root.addHandler(file_handler)
+
+    logger.info("Logging initialized at %s", log_path)
 
 
 def _is_relevant_message(text: str) -> bool:
@@ -41,6 +79,7 @@ def _is_relevant_message(text: str) -> bool:
 
 @app.on_event("startup")
 def on_startup() -> None:
+    _configure_logging()
     init_db()
     start_scheduler()
 
@@ -75,6 +114,7 @@ async def verify_webhook_meta(request: Request):
 @app.post("/webhook")
 async def whatsapp_webhook(request: Request) -> dict[str, Any]:
     payload = await request.json()
+    logger.info("Webhook received")
 
     payload_path = Path(__file__).resolve().parent / "tests" / "ngrok_payload.json"
     payload_path.parent.mkdir(parents=True, exist_ok=True)
@@ -88,20 +128,45 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         value = change.get("value", {})
         messages = value.get("messages", [])
         if not messages:
+            logger.info("Webhook ignored (no messages field)")
             return {"ok": True}  # delivery receipts etc.
         msg = messages[0]
         sender = msg.get("from")  # phone number string without '+'
+        contacts = value.get("contacts", [])
+        wa_id = contacts[0].get("wa_id") if contacts else None
         text = (msg.get("text") or {}).get("body") or ""
     except Exception:
+        logger.exception("Malformed webhook payload")
         raise HTTPException(status_code=400, detail="Malformed webhook payload")
 
+    logger.info("Message from %s: %s", sender, text.replace("\n", " | ")[:500])
+
     # Identify factory by sender phone number
-    factory_key = SENDER_TO_FACTORY.get(sender)
+    sender_candidates = [normalize_phone(sender), normalize_phone(wa_id)]
+    sender_candidates = [s for s in sender_candidates if s]
+    factory_key = next(
+        (SENDER_TO_FACTORY.get(candidate) for candidate in sender_candidates if candidate in SENDER_TO_FACTORY),
+        None,
+    )
+    if not factory_key and DEFAULT_FACTORY_KEY in FACTORIES:
+        factory_key = DEFAULT_FACTORY_KEY
+        logger.warning(
+            "Sender %s not mapped; using DEFAULT_FACTORY_KEY=%s",
+            sender,
+            DEFAULT_FACTORY_KEY,
+        )
+
     if not factory_key or factory_key not in FACTORIES:
-        logger.warning("Unregistered sender %s; no factory mapping", sender)
+        logger.warning(
+            "Unregistered sender %s (candidates: %s); no factory mapping",
+            sender,
+            sender_candidates,
+        )
         # Optionally reply asking them to register
         # send_whatsapp_message(sender, "Please ask admin to register your number to a factory.")
         return {"ok": True}
+
+    logger.info("Resolved factory %s for sender %s", factory_key, sender)
 
     if not _is_relevant_message(text):
         today = date.today()
@@ -160,7 +225,9 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         f"Message:\n{combined_raw}\n"
     )
     try:
+        logger.info("Sending report email to %s", report_path)
         send_email_with_attachment(subject, body, report_path)
+        logger.info("Report email sent")
     except Exception as exc:
         logger.exception("Failed to send notification email: %s", exc)
 

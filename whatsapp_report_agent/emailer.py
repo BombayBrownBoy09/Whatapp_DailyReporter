@@ -1,10 +1,27 @@
 from __future__ import annotations
 
+import logging
 import smtplib
 from email.message import EmailMessage
 from pathlib import Path
 
 from config import SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, REPORT_RECIPIENT_EMAIL
+
+logger = logging.getLogger("whatsapp_report_agent.emailer")
+
+
+def _send_message(msg: EmailMessage) -> None:
+    logger.info("Connecting to SMTP host %s:%s", SMTP_HOST, SMTP_PORT)
+    if SMTP_PORT == 465:
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
+            server.login(SMTP_USER, SMTP_PASS)
+            server.send_message(msg)
+        return
+
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASS)
+        server.send_message(msg)
 
 
 def send_email_with_attachment(subject: str, body: str, attachment_path: str) -> None:
@@ -23,10 +40,8 @@ def send_email_with_attachment(subject: str, body: str, attachment_path: str) ->
         filename=p.name,
     )
 
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
-        server.send_message(msg)
+    _send_message(msg)
+    logger.info("Email with attachment sent to %s", REPORT_RECIPIENT_EMAIL)
 
 
 def send_text_email(subject: str, body: str) -> None:
@@ -36,7 +51,5 @@ def send_text_email(subject: str, body: str) -> None:
     msg["Subject"] = subject
     msg.set_content(body)
 
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
-        server.send_message(msg)
+    _send_message(msg)
+    logger.info("Text email sent to %s", REPORT_RECIPIENT_EMAIL)
