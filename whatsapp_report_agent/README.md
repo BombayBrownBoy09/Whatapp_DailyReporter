@@ -6,6 +6,7 @@ This service ingests WhatsApp Cloud API webhooks, extracts daily production upda
 
 - `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
+- `SMTP_RETRY_COUNT`, `SMTP_RETRY_BASE_DELAY`, `SMTP_RETRY_MAX_DELAY` (optional)
 - `REPORT_RECIPIENT_EMAIL`
 - `SENDER_TO_FACTORY_MAP` (optional): map senders to factories.
 	- Format: `919900011122=truewow,919900033344=solace`

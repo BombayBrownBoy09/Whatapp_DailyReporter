@@ -93,6 +93,9 @@ SMTP_HOST = os.environ["SMTP_HOST"]
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
 SMTP_USER = os.environ["SMTP_USER"]
 SMTP_PASS = os.environ["SMTP_PASS"]
+SMTP_RETRY_COUNT = int(os.environ.get("SMTP_RETRY_COUNT", "3"))
+SMTP_RETRY_BASE_DELAY = float(os.environ.get("SMTP_RETRY_BASE_DELAY", "2"))
+SMTP_RETRY_MAX_DELAY = float(os.environ.get("SMTP_RETRY_MAX_DELAY", "30"))
 
 REPORT_RECIPIENT_EMAIL = os.environ["REPORT_RECIPIENT_EMAIL"]
 
