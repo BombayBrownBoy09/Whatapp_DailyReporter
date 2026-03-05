@@ -97,6 +97,10 @@ SMTP_RETRY_COUNT = int(os.environ.get("SMTP_RETRY_COUNT", "3"))
 SMTP_RETRY_BASE_DELAY = float(os.environ.get("SMTP_RETRY_BASE_DELAY", "2"))
 SMTP_RETRY_MAX_DELAY = float(os.environ.get("SMTP_RETRY_MAX_DELAY", "30"))
 
+EMAIL_PROVIDER = os.environ.get("EMAIL_PROVIDER", "resend").strip().lower()
+EMAIL_FROM = os.environ.get("EMAIL_FROM") or SMTP_USER
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+
 REPORT_RECIPIENT_EMAIL = os.environ["REPORT_RECIPIENT_EMAIL"]
 
 TZ = os.environ.get("TZ", "Asia/Kolkata")
