@@ -222,9 +222,7 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
 
     if missing_fields:
         follow_up = (
-            "I'm Skippy, Smilepad's production reporting agent. "
-            "I accept one daily production entry per factory based on all messages received that day and "
-            "email the compiled report at end of day.\n\n"
+            "I accept one daily production entry per factory based on all messages received that day."
             "To complete today's entry, please share: "
             + ", ".join(missing_fields)
             + "."
