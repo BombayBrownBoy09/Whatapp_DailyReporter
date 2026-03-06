@@ -16,9 +16,10 @@ from config import (
     LOG_LEVEL,
     LOG_DIR,
     LOG_FILE,
+    ENABLE_DAILY_REPORT_EMAIL,
     normalize_phone,
 )
-from db import init_db, upsert_daily_update, fetch_daily_update
+from db import init_db, upsert_daily_update, fetch_daily_update, mark_email_sent, is_email_up_to_date
 from llm_parser import parse_whatsapp_message
 from whatsapp_cloud import send_whatsapp_message
 from scheduler import start_scheduler
@@ -81,7 +82,8 @@ def _is_relevant_message(text: str) -> bool:
 def on_startup() -> None:
     _configure_logging()
     init_db()
-    start_scheduler()
+    if ENABLE_DAILY_REPORT_EMAIL:
+        start_scheduler()
 
 
 @app.get("/webhook")
@@ -212,25 +214,6 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         sender_phone=sender,
     )
 
-    report_path = generate_monthly_report_xlsx(today.year, today.month)
-
-    subject = (
-        f"Skippy payload — {FACTORIES[factory_key].display_name} — {today.isoformat()}"
-    )
-    body = (
-        "Latest factory report attached. This attachment is regenerated on every message and "
-        "overwrites the same-day XLSX file on disk.\n\n"
-        f"Sender: {sender}\n"
-        f"Factory: {FACTORIES[factory_key].display_name}\n\n"
-        f"Message:\n{combined_raw}\n"
-    )
-    try:
-        logger.info("Sending report email to %s", report_path)
-        send_email_with_attachment(subject, body, report_path)
-        logger.info("Report email sent")
-    except Exception as exc:
-        logger.exception("Failed to send notification email: %s", exc)
-
     missing_fields = []
     if parsed.prod_actual is None:
         missing_fields.append("Daily Production")
@@ -251,6 +234,30 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         except Exception as exc:
             logger.exception("Failed to send follow-up to %s: %s", sender, exc)
         return {"ok": True, "missing": missing_fields}
+
+    report_path = generate_monthly_report_xlsx(today.year, today.month)
+
+    subject = (
+        f"Skippy payload — {FACTORIES[factory_key].display_name} — {today.isoformat()}"
+    )
+    body = (
+        "Latest factory report attached. This attachment is regenerated on every message and "
+        "overwrites the same-day XLSX file on disk.\n\n"
+        f"Sender: {sender}\n"
+        f"Factory: {FACTORIES[factory_key].display_name}\n\n"
+        f"Message:\n{combined_raw}\n"
+    )
+    payload_hash = str(hash(combined_raw))
+    if is_email_up_to_date(factory_key, today, payload_hash):
+        logger.info("Report email already sent for current payload %s on %s; skipping.", factory_key, today)
+    else:
+        try:
+            logger.info("Sending report email to %s", report_path)
+            send_email_with_attachment(subject, body, report_path)
+            mark_email_sent(factory_key, today, payload_hash=payload_hash)
+            logger.info("Report email sent")
+        except Exception as exc:
+            logger.exception("Failed to send notification email: %s", exc)
 
     confirmation = (
         f"Logged for {today.isoformat()} ✅\n"

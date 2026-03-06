@@ -100,6 +100,7 @@ SMTP_RETRY_MAX_DELAY = float(os.environ.get("SMTP_RETRY_MAX_DELAY", "30"))
 EMAIL_PROVIDER = os.environ.get("EMAIL_PROVIDER", "resend").strip().lower()
 EMAIL_FROM = os.environ.get("EMAIL_FROM") or SMTP_USER
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+ENABLE_DAILY_REPORT_EMAIL = os.environ.get("ENABLE_DAILY_REPORT_EMAIL", "false").lower() in {"1", "true", "yes"}
 
 REPORT_RECIPIENT_EMAIL = os.environ["REPORT_RECIPIENT_EMAIL"]
 
