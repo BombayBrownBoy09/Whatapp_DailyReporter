@@ -7,6 +7,7 @@ __pycache__/
 .env
 whatsapp_report_agent/.env
 out/
+logs/
 *.xlsx
 *.log
 *.db

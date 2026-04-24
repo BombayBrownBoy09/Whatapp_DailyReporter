@@ -19,24 +19,26 @@ class FactoryConfig:
     off_day: str  # "Sunday", "Wednesday", etc.
 
 
+# ── Factory definitions ───────────────────────────────────────────────────────
+# Add one entry per factory / production unit.
+# key          : short identifier used everywhere in the system
+# display_name : human-readable label used in reports and emails
+# monthly_plan_pcs : monthly production target in pieces
+# off_day      : weekly off-day name — no system target is computed for this day
 FACTORIES: dict[str, FactoryConfig] = {
-    "truewow": FactoryConfig(key="truewow", display_name="Truewow", monthly_plan_pcs=10_000_000, off_day="Sunday"),
-    "solace": FactoryConfig(key="solace", display_name="Solace", monthly_plan_pcs=6_000_000, off_day="Thursday"),
-    "garg": FactoryConfig(key="garg", display_name="Garg Hygiene", monthly_plan_pcs=6_000_000, off_day="Sunday"),
-    "proctus": FactoryConfig(key="proctus", display_name="Proctus", monthly_plan_pcs=5_000_000, off_day="Wednesday"),
-    "devcap": FactoryConfig(key="devcap", display_name="Dev & Cap", monthly_plan_pcs=6_000_000, off_day="Sunday"),
+    "plant_a": FactoryConfig(key="plant_a", display_name="Plant A", monthly_plan_pcs=10_000_000, off_day="Sunday"),
+    "plant_b": FactoryConfig(key="plant_b", display_name="Plant B", monthly_plan_pcs=6_000_000, off_day="Thursday"),
+    # Add more factories as needed:
+    # "plant_c": FactoryConfig(key="plant_c", display_name="Plant C", monthly_plan_pcs=5_000_000, off_day="Wednesday"),
 }
 
-# Map WhatsApp sender phone numbers -> factory key (YOU MUST FILL THESE)
-# Example:
-# SENDER_TO_FACTORY = { "9199xxxxxx01": "truewow", ... }
+# ── Sender → factory mapping ──────────────────────────────────────────────────
+# Map each factory manager's WhatsApp number (digits only, no +) to a factory key.
+# You can also set this at runtime via the SENDER_TO_FACTORY_MAP env variable
+# (see README for format details).
 _DEFAULT_SENDER_TO_FACTORY: dict[str, str] = {
-    # "19843296624": "truewow",
-    # "919940966624": "truewow",
-    # "9199xxxxxx02": "solace",
-    # "9199xxxxxx03": "garg",
-    # "9199xxxxxx04": "proctus",
-    "19843296624": "devcap",
+    # "919900011122": "plant_a",
+    # "919900033344": "plant_b",
 }
 
 

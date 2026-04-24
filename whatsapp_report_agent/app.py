@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+import hashlib
 import json
 import logging
 from logging.handlers import RotatingFileHandler
@@ -174,7 +175,7 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         today = date.today()
         system_target = computed_system_target(factory_key, today)
         guidance = (
-            "I'm Skippy, Smilepad's production reporting agent. "
+            "I'm your production reporting agent. "
             "I only log daily production entries. "
             "Please send your daily update in this format:\n"
             "Daily Production: <value>\n"
@@ -236,7 +237,7 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
     report_path = generate_monthly_report_xlsx(today.year, today.month)
 
     subject = (
-        f"Skippy payload — {FACTORIES[factory_key].display_name} — {today.isoformat()}"
+        f"Factory report — {FACTORIES[factory_key].display_name} — {today.isoformat()}"
     )
     body = (
         "Latest factory report attached. This attachment is regenerated on every message and "
@@ -245,7 +246,7 @@ async def whatsapp_webhook(request: Request) -> dict[str, Any]:
         f"Factory: {FACTORIES[factory_key].display_name}\n\n"
         f"Message:\n{combined_raw}\n"
     )
-    payload_hash = str(hash(combined_raw))
+    payload_hash = hashlib.sha256(combined_raw.encode("utf-8")).hexdigest()
     if is_email_up_to_date(factory_key, today, payload_hash):
         logger.info("Report email already sent for current payload %s on %s; skipping.", factory_key, today)
     else:
