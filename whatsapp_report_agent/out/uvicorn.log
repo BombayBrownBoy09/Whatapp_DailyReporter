@@ -1,0 +1,261 @@
+INFO:     Will watch for changes in these directories: ['/Users/bhargav/Documents/GitHub/SP_Reporter']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [46378] using StatReload
+INFO:     Started server process [46428]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     2401:4900:8f57:2958:986c:3479:b292:632:0 - "GET /webhook?hub_mode=subscribe&hub_verify_token=smilepad_agent&hub_challenge=123 HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:9:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:5d:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:21ff:41:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:12ff:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:41:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:59:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:46:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:21ff:50:::0 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46428]
+INFO:     Started server process [47505]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47505]
+INFO:     Started server process [47532]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47532]
+INFO:     Started server process [47558]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47558]
+INFO:     Started server process [47854]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47854]
+INFO:     Started server process [47866]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     2a03:2880:10ff:7:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:21ff:73:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:53:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:21ff:72:::0 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/db.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47866]
+INFO:     Started server process [52157]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/emailer.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [52157]
+INFO:     Started server process [52170]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [52170]
+INFO:     Started server process [52195]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56847 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/db.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [52195]
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/emailer.py'. Reloading...
+INFO:     Started server process [54184]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [54184]
+INFO:     Started server process [54187]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [54187]
+INFO:     Started server process [54200]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56922 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [54200]
+INFO:     Started server process [55646]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/db.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55646]
+INFO:     Started server process [55647]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55647]
+INFO:     Started server process [55685]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/emailer.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55685]
+INFO:     Started server process [55693]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55693]
+INFO:     Started server process [55694]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55694]
+INFO:     Started server process [55700]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55700]
+INFO:     Started server process [55706]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56987 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55706]
+INFO:     Started server process [57277]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57040 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [57277]
+INFO:     Started server process [69692]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_workflow_truewow.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [69692]
+INFO:     Started server process [71092]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57383 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2401:4900:8f57:2958:dcfa:77f3:6688:35a3:0 - "GET /webhook HTTP/1.1" 403 Forbidden
+INFO:     2401:4900:8f57:2958:dcfa:77f3:6688:35a3:0 - "GET /webhook?hub_mode=subscribe&hub_verify_token=smilepad_agent&hub_challenge=123 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71092]
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/tests/test_whatsapp_email.py'. Reloading...
+INFO:     Started server process [71397]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71397]
+INFO:     Started server process [71398]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     2a03:2880:12ff:73:::0 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71398]
+INFO:     Started server process [71489]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57485 - "POST /webhook HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71489]
+INFO:     Started server process [73140]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73140]
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000001f60c2240 (most recent call first):
+  <no Python frame>
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/app.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000001f60c2240 (most recent call first):
+  <no Python frame>
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/whatsapp_cloud.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000001f60c2240 (most recent call first):
+  <no Python frame>
+WARNING:  StatReload detected changes in 'whatsapp_report_agent/whatsapp_cloud.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000001f60c2240 (most recent call first):
+  <no Python frame>
+INFO:     Stopping reloader process [46378]
