@@ -1,0 +1,15 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+whatsapp_report_agent/.env
+out/
+logs/
+*.xlsx
+*.log
+*.db
+*.csv
+whatsapp_report_agent/agent.db
